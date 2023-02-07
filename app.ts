@@ -11,7 +11,17 @@ const bcrypt = require('bcrypt');
 var session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+const pgp = require('pg-promise')(/* options */)
+var dbSecret = process.env.DBSECRET
+// const db = pgp(`postgres://postgres:${dbSecret}@speedtest-expressdb.crfb1lzzct3l.ap-southeast-2.rds.amazonaws.com:5432/database`)
+const db = pgp(`postgres://postgres:passwd@localhost`)
+db.one('SELECT $1 AS value', 123)
+  .then((data) => {
+    console.log('DATA:', data.value)
+  })
+  .catch((error) => {
+    console.log('ERROR:', error)
+  })
 
 var app = express();
 const port = 3000
@@ -104,9 +114,9 @@ function restrict(req, res, next) {
   }
 }
 
-app.get('/', function (req, res) {
-  res.redirect('/login');
-});
+// app.get('/', function (req, res) {
+//   res.redirect('/login');
+// });
 
 app.get('/restricted', restrict, function (req, res) {
   res.send('Wahoo! restricted area, click to <a href="/logout">logout</a>');

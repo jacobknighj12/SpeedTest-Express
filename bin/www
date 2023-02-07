@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../app.ts');
 var debug = require('debug')('speedtest-express:server');
 var http = require('http');
-
+app.use(express.json());
 /**
  * Get port from environment and store in Express.
  */
