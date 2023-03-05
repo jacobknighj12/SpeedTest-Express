@@ -11,8 +11,8 @@ const bcrypt = require('bcrypt');
 var session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const pgp = require('pg-promise')(/* options */)
-var dbSecret = process.env.DBSECRET
+const pgp = require('pg-promise')(/* options */);
+// var dbSecret = process.env.DBSECRET
 // const db = pgp(`postgres://postgres:${dbSecret}@speedtest-expressdb.crfb1lzzct3l.ap-southeast-2.rds.amazonaws.com:5432/database`)
 const db = pgp(`postgres://postgres:passwd@localhost`)
 db.one('SELECT $1 AS value', 123)
